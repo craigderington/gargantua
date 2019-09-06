@@ -5,5 +5,5 @@ ENV PYTHONUNBUFFERED=1 PYTHONHASHSEED=random PYTHONDONTWRITEBYTECODE=1
 WORKDIR /app
 COPY . /app
 RUN pip3 install --no-cache-dir -r requirements.txt
-EXPOSE 5000
-CMD ["flower", "-A", "horizon.app:app", "--broker", "amqp://172.18.0.2:5672/", "--address=0.0.0.0", "--port=5000"]
+EXPOSE 5555
+CMD ["flower", "-A", "horizon.app:app", "--broker", "amqp://rabbitmq:5672/", "--address=0.0.0.0", "--port=5555"]
