@@ -44,19 +44,25 @@ services:
             - rabbitmq
             - redis
 
-    flower_monitor:
+    flower:
         build:
             context: .
             dockerfile: Dockerfile_flower
-        command: flower -A horizon.app:app --broker=amqp://rabbitmq --address=0.0.0.0 --port=5555
+        environment:
+            - BROKER_URL=amqp://guest:guest@rabbitmq:5672/
+            - CELERY_RESULT_BACKEND=redis://redis:6379/0  
+        working_dir: /app
+        command: flower -A horizon.app:app --address=0.0.0.0 --port=5555
+        volumes:
+          - .:/app
         ports:
-            - "5555:5555"
-        depends_on:
-            - rabbitmq
-            - redis
+          - "5555:5555"
+        links:
+          - database
+          - rabbitmq
 
     database:
-        hostname: mongo
+        hostname: mongodb-server
         image: mongo:latest
         ports:
             - "27017:27107"

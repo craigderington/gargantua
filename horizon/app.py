@@ -34,6 +34,7 @@ logger = get_task_logger(__name__)
 
 
 @api.route("/", methods=["GET"])
+@api.route("/index", methods=["GET", "POST"])
 def index():
     return render_template(
         "index.html",
