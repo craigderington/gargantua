@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 MAINTAINER Craig Derington
 RUN apt update && apt upgrade -y
-RUN apt install -y gcc python3-pip python3-dev python-pil libxml2-dev
+RUN apt install -y gcc curl python3-pip python3-dev python-pil libxml2-dev
 WORKDIR /app
 COPY . /app
 RUN pip3 install -r requirements.txt
